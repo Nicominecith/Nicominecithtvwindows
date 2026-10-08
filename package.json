@@ -1,0 +1,56 @@
+{
+  "name": "nicominecith-tv",
+  "productName": "Nicominecith TV",
+  "version": "2.16.3",
+  "description": "Nicominecith TV – Twitch-Client für Windows",
+  "author": "Nicominecith",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "dist": "electron-builder --win --publish never",
+    "release": "electron-builder --win --publish always"
+  },
+  "devDependencies": {
+    "electron": "^33.2.0",
+    "electron-builder": "^25.1.8"
+  },
+  "build": {
+    "appId": "com.nico.nicotv.windows",
+    "productName": "Nicominecith TV",
+    "copyright": "© Nicominecith",
+    "directories": { "output": "dist", "buildResources": "build" },
+    "files": ["main.js", "preload.js", "app/**/*", "build/icon.ico", "package.json"],
+    "publish": [{ "provider": "github", "owner": "Nicominecith", "repo": "Nicominecithtvwindows" }],
+    "win": {
+      "icon": "build/icon.ico",
+      "target": [
+        { "target": "nsis-web", "arch": ["x64"] },
+        { "target": "nsis", "arch": ["x64"] },
+        { "target": "portable", "arch": ["x64"] }
+      ]
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "Nicominecith TV",
+      "runAfterFinish": true,
+      "deleteAppDataOnUninstall": false,
+      "installerIcon": "build/icon.ico",
+      "uninstallerIcon": "build/icon.ico",
+      "installerHeaderIcon": "build/icon.ico",
+      "installerSidebar": "build/installerSidebar.bmp",
+      "uninstallerSidebar": "build/installerSidebar.bmp",
+      "include": "build/installer.nsh",
+      "artifactName": "NicominecithTV-Setup-${version}.${ext}"
+    },
+    "nsisWeb": {
+      "artifactName": "NicominecithTV-Downloader-${version}.${ext}"
+    },
+    "portable": {
+      "artifactName": "NicominecithTV-Portable-${version}.${ext}"
+    }
+  }
+}
